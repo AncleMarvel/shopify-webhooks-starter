@@ -25,6 +25,7 @@ app.post('/webhook', (req, res) => {
         if (topic === 'checkouts/update') {
             enqueueWebhookTask(req.body, checkoutUpdate);
         }
+        // other handlers
     } else {
         console.log('Webhook failed =(');
     }

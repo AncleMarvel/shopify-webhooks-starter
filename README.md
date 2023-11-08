@@ -14,3 +14,4 @@ You can use whatever you want for tunneling, but I use ngrok. You need it to mak
 6. After creating a webhook you will got a key for verifying webhook integrity. Copy the key and create .env file in your project folder.
 7. Paste the key in .env file so you got something like this: SHOPIFY_SECRET=ddf3aec7ff3d6e0e7f9364b978d201310444e58813f323492afafe4f088a7abe.
 8. Reload the server and then go back to Shopify admin pannel -> Webhooks and click "Send test notification" button to make sure anything works.
+9. Add you handlers in server.js, but make sure you wrapped it with enqueueWebhookTask function, so you use it like: enqueueWebhookTask(req.body, callbackFunction);
