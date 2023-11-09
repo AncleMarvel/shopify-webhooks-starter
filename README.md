@@ -1,17 +1,58 @@
-# shopify-webhooks-starter
-A starter app to manage your Shopify store's webhooks
+# Shopify Webhooks Starter
 
-# Gettings started
-## How to develop
-1. npm install
-2. npm run dev
-3. ngrok http [your_port] (as default 3000)
+This starter application facilitates the management of Shopify store webhooks, providing a local development setup for webhook integration and testing.
 
-You can use whatever you want for tunneling, but I use ngrok. You need it to make you localserver public so that Shopify can interact with your server.
+## Getting Started
 
-4. Take the URL which ngrok has generated and append "/webhook", you should have something like: https://c120b310f4a7.ngrok.app/webhook
-5. Go to Shopify store's admin pannel -> Settings -> Notification -> Webhooks and create one providing the URL you got from the 4th step.
-6. After creating a webhook you will got a key for verifying webhook integrity. Copy the key and create .env file in your project folder.
-7. Paste the key in .env file so you got something like this: SHOPIFY_SECRET=ddf3aec7ff3d6e0e7f9364b978d201310444e58813f323492afafe4f088a7abe.
-8. Reload the server and then go back to Shopify admin pannel -> Webhooks and click "Send test notification" button to make sure anything works.
-9. Add you handlers in server.js, but make sure you wrapped it with enqueueWebhookTask function, so you use it like: enqueueWebhookTask(req.body, callbackFunction);
+### Prerequisites
+
+- Node.js installed on your machine
+- A Shopify store with admin access
+- [ngrok](https://ngrok.com/) or any similar tunneling service for local development
+
+### Development Setup
+
+Follow these steps to set up and run your local development environment:
+
+1. Install dependencies:
+
+    ```
+    npm instal
+    ```
+2. Start the development server:
+
+    ```
+    npm run dev
+    ```
+3. Set up a tunnel to your local server using ngrok (default port is 3000):
+
+    ```
+    ngrok http 3000
+    ```
+
+### Configuring Webhooks with Shopify
+
+1. Take the HTTPS URL provided by ngrok and append /webhook to it. For example:
+
+    ```
+    https://<your-ngrok-subdomain>.ngrok.io/webhook
+    ```
+2. In your Shopify store's admin panel, navigate to Settings > Notifications > Webhooks.
+3. Create a new webhook by providing the URL obtained from the above step.
+4. Upon creation, Shopify will provide a key to verify webhook integrity. Copy this key.
+5. Create a .env file in your project folder and paste the key like so:
+
+```
+SHOPIFY_SECRET=<your-shopify-secret-key>
+```
+
+6. Restart your server to load the new environment variables.
+
+7. Go back to the Shopify admin panel under Webhooks and click the "Send test notification" button to ensure everything is set up correctly.
+
+### Handling Webhooks
+Implement your webhook handlers in `server.js`. Ensure you wrap them with the `enqueueWebhookTask` function for proper processing. For example:
+
+```
+enqueueWebhookTask(req.body, yourCallbackFunction);
+```
